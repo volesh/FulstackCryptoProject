@@ -1,0 +1,24 @@
+{
+  "name": "fulstackcryptoproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "echo \" Backend is working \" && nodemon app.js"
+  },
+  "keywords": [],
+  "author": "Vasyl Olesh",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "joi": "^17.7.0",
+    "mongoose": "^6.7.3",
+    "bcrypt": "^5.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.20"
+
+  },
+  "devDependencies": {
+  }
+}

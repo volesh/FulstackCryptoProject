@@ -4,6 +4,7 @@ exports.envConfig = void 0;
 const dotenv_1 = require("dotenv");
 (0, dotenv_1.config)();
 exports.envConfig = {
-    PORT: process.env.PORT
+    PORT: process.env.PORT,
+    MONGO_SERVER: process.env.MONGO_SERVER
 };
 //# sourceMappingURL=envsConfig.js.map

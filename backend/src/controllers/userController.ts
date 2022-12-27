@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { userRepository } from '../reposetories';
 import { IRequest } from '../interfaces';
+import { passwordHelper } from '../helpers';
 
 export const userController = {
     getAllUsers: async (req:Request, res:Response, next:NextFunction):Promise<void> => {
@@ -25,7 +26,8 @@ export const userController = {
 
     createUser: async (req:Request, res:Response, next:NextFunction):Promise<void> => {
         try {
-            const user = await userRepository.createUser(req.body);
+            const hashPass = await passwordHelper.hashPassword(req.body.password);
+            const user = await userRepository.createUser({ ...req.body, password: hashPass });
             res.json(user);
         } catch (e) {
             next(e);

@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import { CustomError } from '../errors';
 
-export const hashPasswordHelper = {
+export const passwordHelper = {
     hashPassword: async (pass: string):Promise<string> => bcrypt.hash(pass, 10),
 
     comparePasswords: async (pass: string, hashedPass: string):Promise<void> => {

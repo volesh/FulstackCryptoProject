@@ -2,6 +2,7 @@ import {
     Schema, Document, Model, model
 } from 'mongoose';
 import { IUser } from '../interfaces';
+import { regexpEnum } from '../constants';
 
 export type UserType = IUser & Document
 
@@ -10,10 +11,25 @@ const userSchema: Schema = new Schema<IUser>(
         name: { type: String, require: true },
         age: { type: Number, required: true },
         email: {
-            type: String, lowercase: true, trim: true, required: true, unique: true,
+            type: String,
+            regex: regexpEnum.EMAIL,
+            lowercase: true,
+            trim: true,
+            required: true,
+            unique: true,
         },
-        phone: { type: String, required: true },
-        password: { type: String, required: true, trim: true },
+        phone: {
+            type: String,
+            regex: regexpEnum.PHONE,
+            unique: true,
+            required: true
+        },
+        password: {
+            type: String,
+            regex: regexpEnum.PASSWORD,
+            required: true,
+            trim: true
+        },
         invested: { type: Number, default: 0 },
     },
     { timestamps: true }

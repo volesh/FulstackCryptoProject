@@ -5,7 +5,7 @@ import express, {
 import mongoose from 'mongoose';
 
 import { envConfig } from './configs';
-import { apiRouter } from './routers';
+import { apiRouter } from './routes';
 
 const app = express();
 

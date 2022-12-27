@@ -1,4 +1,5 @@
 import * as Joi from 'joi';
+import { regexpEnum } from '../constants';
 
 export const userValidator = {
     newUserValidator: Joi.object({
@@ -7,10 +8,14 @@ export const userValidator = {
             .required()
             .max(50)
             .min(2),
-        age: Joi.number().min(15).max(120).required(),
-        email: Joi.string().trim().lowercase().required(),
-        password: Joi.string().trim().required(),
-        phone: Joi.string().trim().required(),
-        invested: Joi.number().default(0).required()
+        age: Joi.number().min(15).max(120),
+        email: Joi.string()
+            .trim()
+            .lowercase()
+            .regex(regexpEnum.EMAIL)
+            .required(),
+        password: Joi.string().trim().regex(regexpEnum.PASSWORD).required(),
+        phone: Joi.string().trim().regex(regexpEnum.PHONE).required(),
+        invested: Joi.number().default(0)
     })
 };

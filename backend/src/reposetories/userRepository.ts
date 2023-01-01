@@ -1,3 +1,4 @@
+import { Schema } from 'mongoose';
 import { UserDb } from '../models';
 import { IUser } from '../interfaces';
 
@@ -9,6 +10,12 @@ const userRepository = {
 
     createUser: async (data:IUser):Promise<IUser> => {
         return UserDb.create(data);
+    },
+    updateUser: async (
+        data: Partial<IUser>,
+        id:Schema.Types.ObjectId|string
+    ):Promise<IUser|null> => {
+        return UserDb.findByIdAndUpdate(id, data, { new: true });
     }
 };
 

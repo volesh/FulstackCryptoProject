@@ -2,20 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 import { userRepository } from '../reposetories';
 import { IRequest } from '../interfaces';
 import { passwordHelper } from '../helpers';
+import { userValidator } from '../validators';
 
 export const userController = {
-    getAllUsers: async (req:Request, res:Response, next:NextFunction):Promise<void> => {
-        try {
-            const users = await userRepository.getAll();
-            if (!users) {
-                throw new Error('User not found');
-            }
-            res.json(users);
-        } catch (e) {
-            next();
-        }
-    },
-
     getUserByParams: async (req:IRequest, res:Response, next:NextFunction):Promise<void> => {
         try {
             res.json(req.user);
@@ -29,6 +18,23 @@ export const userController = {
             const hashPass = await passwordHelper.hashPassword(req.body.password);
             const user = await userRepository.createUser({ ...req.body, password: hashPass });
             res.json(user);
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    changePass: async (req:IRequest, res:Response, next:NextFunction):Promise<void> => {
+        try {
+            const { oldPassword, newPassword } = req.body;
+            const { id } = req.params;
+            await passwordHelper.comparePasswords(oldPassword, req.user?.password as string);
+            const isValid = userValidator.newPasswordValidator.validate(req.body);
+            if (isValid.error) {
+                throw new Error('invalidBody');
+            }
+            const hashedNewPass = await passwordHelper.hashPassword(newPassword);
+            const userWithNewPass = userRepository.updateUser({ password: hashedNewPass }, id);
+            res.json(userWithNewPass);
         } catch (e) {
             next(e);
         }

@@ -1,17 +1,24 @@
 import express from 'express';
 import { userController } from '../controllers';
-import { userMiddleware } from '../middlevares';
+import { authMiddleware, userMiddleware } from '../middlevares';
 
 const userRouter = express.Router();
 
-userRouter.get('/', userController.getAllUsers);
 userRouter.post('/', userMiddleware.isNewUserValid, userController.createUser);
 
 userRouter.get(
     '/:id',
     userMiddleware.isUserIdValid,
+    authMiddleware.isAccessTokenValid,
     userMiddleware.isUserExist('id', 'params', '_id'),
     userController.getUserByParams
+);
+userRouter.post(
+    '/:id/changePass',
+    userMiddleware.isUserIdValid,
+    authMiddleware.isAccessTokenValid,
+    userMiddleware.isUserExist('id', 'params', '_id'),
+    userController.changePass
 );
 
 export {

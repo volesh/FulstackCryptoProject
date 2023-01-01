@@ -1,18 +1,18 @@
 import { Schema } from 'mongoose';
 import { IUsersToken } from '../interfaces';
-import { TokenDb } from '../models';
+import { UsersTokenDb } from '../models';
 
-export const tokenRepository = {
+export const usersTokenRepository = {
     createToken: async (data: Partial<IUsersToken>):Promise<IUsersToken> => {
-        return TokenDb.create(data);
+        return UsersTokenDb.create(data);
     },
     getTokenBySymbol: async (symbol:string):Promise<IUsersToken|null> => {
-        return TokenDb.findOne({ tokenSymbol: symbol });
+        return UsersTokenDb.findOne({ tokenSymbol: symbol });
     },
     updateTokenById: async (
         id: Schema.Types.ObjectId,
         newInfo: Partial<IUsersToken>
     ):Promise<IUsersToken|null> => {
-        return TokenDb.findByIdAndUpdate(id, newInfo, { new: true });
+        return UsersTokenDb.findByIdAndUpdate(id, newInfo, { new: true });
     }
 };

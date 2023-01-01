@@ -1,6 +1,6 @@
 import { ITransaction, IUsersToken } from '../interfaces';
 
-export const tokenHelper = {
+export const usersTokenHelper = {
     calculateTokenInfo: (
         token: IUsersToken,
         transaction: ITransaction

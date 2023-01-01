@@ -18,6 +18,6 @@ const tokenSchema: Schema = new Schema<IUsersToken>(
     { timestamps: true }
 );
 
-const TokenDb: Model<TokenType> = model<TokenType>('Token', tokenSchema);
+const UsersTokenDb: Model<TokenType> = model<TokenType>('Token', tokenSchema);
 
-export { TokenDb };
+export { UsersTokenDb };

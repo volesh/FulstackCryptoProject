@@ -30,11 +30,11 @@ require("reflect-metadata");
 const express_1 = __importStar(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const configs_1 = require("./configs");
-const routers_1 = require("./routers");
+const routes_1 = require("./routes");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, express_1.urlencoded)({ extended: true }));
-app.use(routers_1.apiRouter);
+app.use(routes_1.apiRouter);
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
     res.status(err.status || 500).json({

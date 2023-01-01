@@ -1,3 +1,4 @@
 export * from './userModel';
 export * from './transactionModel';
-export * from './tokenModel';
+export * from './usersTokenModel';
+export * from './authModel';

@@ -6,9 +6,14 @@ const authRouter = express.Router();
 
 authRouter.post(
     '/login',
-    authMiddleware.isLoginValid,
     userMiddleware.isUserExist('email'),
+    authMiddleware.isLoginValid,
     authController.login
+);
+authRouter.post(
+    '/refresh',
+    authMiddleware.isRefreshValid,
+    authController.refresh
 );
 
 export {

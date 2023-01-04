@@ -7,7 +7,7 @@ export interface IUser {
     name: string
     age?:number
     email: string
-    password?:string
+    password:string
     phone: string
     invested: number
     transactions?: ITransaction[],

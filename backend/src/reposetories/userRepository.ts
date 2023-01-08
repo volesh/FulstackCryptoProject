@@ -3,9 +3,31 @@ import { UserDb } from '../models';
 import { IUser } from '../interfaces';
 
 const userRepository = {
-    getAll: async ():Promise<IUser[]> => UserDb.find({}),
     getByParams: async (dbField:string, fieldToSearch:string):Promise<IUser|null> => {
         return UserDb.findOne({ [dbField]: fieldToSearch });
+    },
+    getUserWithAggregate: async (userId: Schema.Types.ObjectId):Promise<IUser[]|null|any> => {
+        return UserDb.aggregate([
+            {
+                $match: { _id: userId }
+            },
+            {
+                $lookup: {
+                    from: 'transactions',
+                    localField: '_id',
+                    foreignField: '_user_id',
+                    as: 'transactions'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'tokens',
+                    localField: '_id',
+                    foreignField: '_user_id',
+                    as: 'tokens'
+                }
+            }
+        ]);
     },
 
     createUser: async (data:IUser):Promise<IUser> => {

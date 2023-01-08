@@ -11,6 +11,8 @@ userRouter.get(
     userMiddleware.isUserIdValid,
     authMiddleware.isAccessTokenValid,
     userMiddleware.isUserExist('id', 'params', '_id'),
+    userMiddleware.aggregateUser,
+    userMiddleware.calculateCurrentValue,
     userController.getUserByParams
 );
 userRouter.post(

@@ -8,7 +8,7 @@ export type TransactionType = ITransaction & Document
 const transactionSchema: Schema = new Schema<ITransaction>(
     {
         _user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-        tokenSymbol: { type: String, unique: true, required: true },
+        tokenSymbol: { type: String, required: true },
         date: { type: Date, required: true },
         count: { type: Number, required: true },
         price: { type: Number, required: true },

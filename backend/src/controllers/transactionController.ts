@@ -7,7 +7,9 @@ export const transactionController = {
     createTransaction: async (req:IRequest, res:Response, next: NextFunction):Promise<void> => {
         try {
             const transactionInfo = req.body;
-            const transaction = await transactionRepository.createTransaction(transactionInfo);
+            const transaction = await transactionRepository.createTransaction(
+                { ...transactionInfo, _user_id: req.params.id }
+            );
             const token = await usersTokenRepository.getTokenBySymbol(transaction.tokenSymbol);
             let usersToken:IUsersToken|null = {} as IUsersToken|null;
             if (token) {

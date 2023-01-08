@@ -7,6 +7,8 @@ export const envConfig = {
     MONGO_SERVER: process.env.MONGO_SERVER,
     FRONTEND_URL: process.env.FRONTEND_URL,
 
+    AXIOS_BASE_URL: process.env.AXIOS_BASE_URL,
+
     ACCESS_KEY_WORD: process.env.ACCESS_KEY_WORD || 'lskdfglfdjhg',
     REFRESH_KEY_WORD: process.env.REFRESH_KEY_WORD || 'sldfgjvmsfgfgfd',
     FORGOT_PASS_KEY_WORD: process.env.FORGOT_PASS_KEY_WORD || 'sfdgvnhisufxhe',

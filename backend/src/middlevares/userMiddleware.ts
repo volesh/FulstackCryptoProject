@@ -73,13 +73,16 @@ const userMiddleware = {
     calculateCurrentValue: async (req:IRequest, res:Response, next:NextFunction):Promise<void> => {
         try {
             const user = req.user as IUser;
-            const coinMarkets = await coinsService.getCoinMarketsByCoinsList(user.tokens as IUsersToken[]);
-            const { newList, currentValue } = userService.calculateCurrentValue(
-                user.tokens as IUsersToken[],
-                (await coinMarkets).data
-            );
-            const newUser = { ...req.user as IUser, tokens: newList, currentValue };
-            req.user = newUser;
+            const tokens = user.tokens as IUsersToken[];
+            if (tokens.length > 0) {
+                const coinMarkets = await coinsService.getCoinMarketsByCoinsList(user.tokens as IUsersToken[]);
+                const { newList, currentValue } = userService.calculateCurrentValue(
+                    user.tokens as IUsersToken[],
+                    coinMarkets.data
+                );
+                const newUser = { ...req.user as IUser, tokens: newList, currentValue };
+                req.user = newUser;
+            }
             next();
         } catch (e) {
             next(e);

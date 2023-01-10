@@ -48,7 +48,12 @@ const userMiddleware = {
             if (transactions) {
                 const calc = 0;
                 const coinsMarkets = await coinsService.getCoinMarketsByTransactions(transactions as ITransaction[]);
-                req.user!.tokens = usersTokenHelper.calculateTokenInfo(coinsMarkets.data, transactions);
+                const sortedTransactions = transactions.sort((a, b) => {
+                    return +new Date(a.date) - +new Date(b.date);
+                });
+                const { coins, fixedMoney } = usersTokenHelper.calculateTokenInfo(coinsMarkets.data, sortedTransactions);
+                req.user!.fixedIncome += fixedMoney;
+                req.user!.tokens = coins;
                 req.user!.currentVale = req.user!.tokens.reduce((
                     accumulator,
                     currentValue

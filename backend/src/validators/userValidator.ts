@@ -16,7 +16,8 @@ export const userValidator = {
             .required(),
         password: Joi.string().trim().regex(regexpEnum.PASSWORD).required(),
         phone: Joi.string().trim().regex(regexpEnum.PHONE).required(),
-        invested: Joi.number().default(0)
+        invested: Joi.number(),
+        fixedIncome: Joi.number().default(0)
     }),
     newPasswordValidator: Joi.object({
         newPassword: Joi.string().trim().regex(regexpEnum.PASSWORD).required(),

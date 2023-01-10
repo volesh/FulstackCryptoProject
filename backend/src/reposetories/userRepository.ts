@@ -6,7 +6,7 @@ const userRepository = {
     getByParams: async (dbField:string, fieldToSearch:string):Promise<IUser|null> => {
         return UserDb.findOne({ [dbField]: fieldToSearch });
     },
-    getUserWithAggregate: async (userId: Schema.Types.ObjectId):Promise<IUser[]|null|any> => {
+    getUserWithTransactions: async (userId: Schema.Types.ObjectId):Promise<IUser[]|null|any> => {
         return UserDb.aggregate([
             {
                 $match: { _id: userId }
@@ -17,14 +17,6 @@ const userRepository = {
                     localField: '_id',
                     foreignField: '_user_id',
                     as: 'transactions'
-                }
-            },
-            {
-                $lookup: {
-                    from: 'tokens',
-                    localField: '_id',
-                    foreignField: '_user_id',
-                    as: 'tokens'
                 }
             }
         ]);

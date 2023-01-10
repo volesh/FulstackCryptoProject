@@ -1,14 +1,17 @@
-import { ICoinMarket, IUsersToken } from '../interfaces';
+import { ICoinMarket, ITransaction } from '../interfaces';
 import { axiosRequest, axiosResponse } from './axiosService';
 
 export const coinsService = {
-    getCoinMarketsByCoinsList: async (coinsList: IUsersToken[]):
+    getCoinMarketsByTransactions: async (transactions: ITransaction[]):
         Promise<axiosResponse<ICoinMarket[]>> => {
-        const coinsIds:string[] = [];
-        coinsList.forEach((coin) => {
-            coinsIds.push(coin.tokenSymbol);
+        const listOfTokens: string[] = [];
+        transactions.forEach((elem) => {
+            if (!listOfTokens.includes(elem.tokenId)) {
+                listOfTokens.push(elem.tokenId);
+            }
         });
-        const requestString = coinsIds.join('%2C%20');
+        const requestString = listOfTokens.join('%2C%20');
+        console.log('get coin markets');
         return axiosRequest.getCoinsPrices(requestString);
     }
 };

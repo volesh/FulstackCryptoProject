@@ -9,7 +9,7 @@ export const userService = {
         let currentValue = 0;
         const newList = listOfUsersCoins.map((coin) => {
             const coinMarket = coinMarkets.find(
-                (market) => market.id === coin.tokenSymbol
+                (market) => market.id === coin.tokenId
             ) as ICoinMarket;
             const currentCoinValue = coin.count * coinMarket.current_price;
             currentValue += currentCoinValue;

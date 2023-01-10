@@ -1,29 +1,48 @@
-import { ITransaction, IUsersToken } from '../interfaces';
+import { ICoinMarket, ITransaction, IUsersToken } from '../interfaces';
 
 export const usersTokenHelper = {
-    calculateTokenInfo: (
-        token: IUsersToken,
-        transaction: ITransaction
-    ):{count:number, spendMoney:number, avgPrice:number} => {
-        const count = token.count + transaction.count;
-        const spendMoney = token.spendMoney + (transaction.price * transaction.count);
-        const avgPrice = spendMoney / count;
-        return {
-            count,
-            spendMoney,
-            avgPrice
-        };
-    },
-    // Доробити image і name
-    createTokenFromTransaction: (transaction: ITransaction):Partial<IUsersToken> => {
-        return {
-            _user_id: transaction._user_id,
-            tokenSymbol: transaction.tokenSymbol,
-            count: transaction.count,
-            spendMoney: transaction.count * transaction.price,
-            avgPrice: transaction.price,
-            image: 'dlkfjds',
-            name: 'slfkjslf'
-        };
+    calculateTokenInfo: (coinsMarkets: ICoinMarket[], transactions: ITransaction[]):IUsersToken[] => {
+        const listOfTokens: string[] = [];
+        const coins:IUsersToken[] = [];
+        transactions.forEach((elem) => {
+            if (!listOfTokens.includes(elem.tokenId)) {
+                listOfTokens.push(elem.tokenId);
+            }
+        });
+        listOfTokens.forEach((elem) => {
+            const listOfTransactions: ITransaction[]|undefined = transactions.filter((trans) => trans.tokenId === elem);
+            const totalInvest = 0;
+            const countOfTokens = 0;
+            const market = coinsMarkets.find((mark) => mark.id === elem);
+            const sumInvested = listOfTransactions?.reduce(
+                (accumulator, currentValue) => {
+                    if (currentValue.status) {
+                        return accumulator + (currentValue.price * currentValue.count);
+                    }
+                    return accumulator - (currentValue.price * currentValue.count);
+                },
+                totalInvest
+            );
+            const totalTokens = listOfTransactions?.reduce(
+                (accumulator, currentValue) => {
+                    if (currentValue.status) {
+                        return accumulator + currentValue.count;
+                    }
+                    return accumulator - currentValue.count;
+                },
+                countOfTokens
+            );
+            const coin = {
+                name: market!.name,
+                tokenId: market!.id,
+                image: market!.image,
+                count: totalTokens,
+                spendMoney: sumInvested,
+                avgPrice: sumInvested / totalTokens,
+                currentValue: totalTokens * market!.current_price
+            };
+            coins.push(coin);
+        });
+        return coins;
     }
 };

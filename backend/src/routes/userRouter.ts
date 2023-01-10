@@ -12,10 +12,10 @@ userRouter.get(
     authMiddleware.isAccessTokenValid,
     userMiddleware.isUserExist('id', 'params', '_id'),
     userMiddleware.aggregateUser,
-    userMiddleware.calculateCurrentValue,
-    userController.getUserByParams
+    userMiddleware.createUsersCoins,
+    userController.getUser
 );
-userRouter.post(
+userRouter.patch(
     '/:id/changePass',
     userMiddleware.isUserIdValid,
     authMiddleware.isAccessTokenValid,

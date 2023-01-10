@@ -30,7 +30,8 @@ const userSchema: Schema = new Schema<IUser>(
             required: true,
             trim: true
         },
-        invested: { type: Number, default: 0 },
+        fixedIncome: { type: Number, default: 0 },
+        invested: Number
     },
     { timestamps: true }
 );

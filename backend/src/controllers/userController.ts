@@ -5,7 +5,7 @@ import { passwordHelper } from '../helpers';
 import { userValidator } from '../validators';
 
 export const userController = {
-    getUserByParams: async (req:IRequest, res:Response, next:NextFunction):Promise<void> => {
+    getUser: async (req:IRequest, res:Response, next:NextFunction):Promise<void> => {
         try {
             res.json(req.user);
         } catch (e) {

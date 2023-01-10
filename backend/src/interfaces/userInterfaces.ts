@@ -9,7 +9,9 @@ export interface IUser {
     email: string
     password:string
     phone: string
-    invested: number
+    invested?: number
+    fixedIncome: number
+    currentVale?: number
     transactions?: ITransaction[],
     tokens?: IUsersToken[],
     createdAt: Date

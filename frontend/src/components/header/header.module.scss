@@ -1,0 +1,19 @@
+@import "../../commonStyles/button";
+
+.header {
+  width: 100%;
+  padding: 10px 40px;
+  background: var(--background-color);
+  font-size: 30px;
+  text-align: center;
+  background: orange;
+  margin-bottom: 20px;
+}
+.headerContent{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.btn{
+  //@include button(100px, 10px, 10px)
+}

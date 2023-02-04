@@ -19,7 +19,7 @@ export const userController = {
             const user = await userRepository.createUser({ ...req.body, password: hashPass });
             res.json(user);
         } catch (e) {
-            next(e);
+            next(new Error('User with this email alredy exist'));
         }
     },
 

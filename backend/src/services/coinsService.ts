@@ -11,7 +11,6 @@ export const coinsService = {
             }
         });
         const requestString = listOfTokens.join('%2C%20');
-        console.log('get coin markets');
         return axiosRequest.getCoinsPrices(requestString);
     }
 };

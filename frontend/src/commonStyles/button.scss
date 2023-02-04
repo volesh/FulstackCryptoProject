@@ -1,0 +1,22 @@
+@mixin button($width, $vPadding, $gPadding){
+  width: $width;
+  box-sizing: border-box;
+  padding: $gPadding $vPadding;
+  background: rgb(255,165,0);
+  background: linear-gradient(319deg, rgba(255,165,0,1) 16%, rgba(238,179,70,0.8) 100%);
+  transition: .3s;
+  border-radius: 5px;
+  &:hover{
+    transform: translateY(-1px);
+    box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+  }
+  &:active{
+    transform: translateY(1px);
+    box-shadow: none;
+  }
+  &:disabled {
+    background: silver;
+    box-shadow: none;
+    transform: none;
+  }
+}

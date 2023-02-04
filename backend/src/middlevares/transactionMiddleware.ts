@@ -3,7 +3,7 @@ import { IRequest } from '../interfaces';
 import { transactionValidator } from '../validators';
 
 export const transactionMiddleware = {
-    isTransactionValid: (req: IRequest, res: Response, next: NextFunction) => {
+    isTransactionValid: async (req: IRequest, res: Response, next: NextFunction): Promise<void> => {
         try {
             const transaction = req.body;
             const validate = transactionValidator.neTransactionValidator.validate(transaction);
@@ -11,16 +11,6 @@ export const transactionMiddleware = {
                 throw new Error('Transaction not valid');
             }
             req.body = validate.value;
-            next();
-        } catch (e) {
-            next(e);
-        }
-    },
-    isUserHaveSuchTokens: (req: IRequest, res: Response, next: NextFunction) => {
-        try {
-            if (!req.body.status) {
-                console.log('do');
-            }
             next();
         } catch (e) {
             next(e);

@@ -48,6 +48,9 @@ const userMiddleware = {
             if (transactions) {
                 const calc = 0;
                 const coinsMarkets = await coinsService.getCoinMarketsByTransactions(transactions as ITransaction[]);
+                if (!coinsMarkets) {
+                    throw new Error('Problem with coinGeco');
+                }
                 const sortedTransactions = transactions.sort((a, b) => {
                     return +new Date(a.date) - +new Date(b.date);
                 });

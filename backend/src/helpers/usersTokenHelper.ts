@@ -29,9 +29,9 @@ export const usersTokenHelper = {
                 const netProfit = saleIncome - byPrice;
                 const returnedMoney = saleIncome - netProfit;
                 fixedMoney += Math.round(netProfit * 100) / 100;
-                coin.count -= transaction.count;
+                coin.count = Math.round(coin.count * 100) / 100 - Math.round(transaction.count * 100) / 100;
                 coin.spendMoney -= Math.round(returnedMoney * 100) / 100;
-                coin.avgPrice = Math.round((coin.spendMoney / coin.count) * 100) / 100;
+                coin.avgPrice = Math.round((coin.spendMoney / coin.count) * 100) / 100 || 0;
                 coin.currentValue = Math.round((coin.count * market!.current_price) * 100) / 100;
             }
         });

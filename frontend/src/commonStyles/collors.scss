@@ -1,0 +1,22 @@
+// Dark theme
+html[dataTheme='dark']{
+  --background-color: #23242a;
+  --minor-backround-color:#1a1b1f;
+  --maine-color: orangered;
+  --minor-color: grey;
+  --text-color: rgba(255,255,255,0.7);
+  --transparent-color: rgba(35,36,42,0.8);
+  --maine-text-color: snow;
+}
+
+
+// Light theme
+html[dataTheme='light']{
+  --background-color: azure;
+  --minor-backround-color: #a3eeee;
+  --maine-color: teal;
+  --minor-color: teal;
+  --text-color: rgba(255,255,255,0.7);
+  --transparent-color: rgba(35,36,42,0.8);
+  --maine-text-color: black;
+}

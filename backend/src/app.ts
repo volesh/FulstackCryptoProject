@@ -3,12 +3,14 @@ import express, {
     urlencoded, Request, Response, NextFunction
 } from 'express';
 import mongoose from 'mongoose';
+import cors from 'cors';
 
 import { envConfig } from './configs';
 import { apiRouter } from './routes';
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
 

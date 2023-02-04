@@ -18,6 +18,11 @@ const userRepository = {
                     foreignField: '_user_id',
                     as: 'transactions'
                 }
+            },
+            {
+                $project: {
+                    password: 0, phone: 0, __v: 0, createdAt: 0, updatedAt: 0
+                }
             }
         ]);
     },
